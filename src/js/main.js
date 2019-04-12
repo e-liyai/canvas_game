@@ -1,7 +1,9 @@
 let canvas;
 let canvasContext;
 let ballx = 50;
-let ballSpeedx = 5;
+let bally = 50;
+let ballSpeedx = 10;
+let ballSpeedy = 5;
 
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
@@ -16,8 +18,13 @@ window.onload = function () {
 
 function moveEverything() {
     ballx = ballx + ballSpeedx;
+    bally = bally + ballSpeedy;
     if(ballx > canvas.width || ballx < 0) {
         ballSpeedx = -ballSpeedx;
+    }
+
+    if(bally > canvas.height || bally < 0) {
+        ballSpeedy = -ballSpeedy;
     }
 }
 
@@ -26,7 +33,7 @@ function drawEverything() {
     colorRect(0,210, 10, 100, 'white');
 
     // draw ball
-    colorCircle(ballx, 100, 10, 'white')
+    colorCircle(ballx, bally, 10, 'white')
 }
 
 function colorCircle(centerX, centerY, radius, drawColor) {
