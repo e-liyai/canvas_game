@@ -1,6 +1,7 @@
 let canvas;
 let canvasContext;
 let ballx = 50;
+let ballSpeedx = 5;
 
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
@@ -14,11 +15,13 @@ window.onload = function () {
 }
 
 function moveEverything() {
-    ballx = ballx + 5;
+    ballx = ballx + ballSpeedx;
+    if(ballx > canvas.width || ballx < 0) {
+        ballSpeedx = -ballSpeedx;
+    }
 }
 
 function drawEverything() {
-
     canvasContext.fillStyle = 'blue';
     canvasContext.fillRect(0,0, canvas.width, canvas.height);
     canvasContext.fillStyle = 'white';
