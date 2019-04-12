@@ -17,6 +17,11 @@ window.onload = function () {
         moveEverything();
         drawEverything();
     }, 1000/framesPerSecond);
+
+    canvas.addEventListener('mousemove', function(evt) {
+        let mousePos = calculateMousePos(evt)
+        paddle1Y = mousePos.y - (PADDLE_HEIGHT/2);
+    });
 }
 
 function calculateMousePos(evt) {
@@ -45,7 +50,7 @@ function moveEverything() {
 
 function drawEverything() {
     colorRect(0,0, canvas.width, canvas.height, 'blue');
-    colorRect(0,210, 10, 100, 'white');
+    colorRect(0,paddle1Y, 10, PADDLE_HEIGHT, 'white');
 
     // draw ball
     colorCircle(ballX, ballY, 10, 'white')
