@@ -44,9 +44,19 @@ function ballReset() {
     ballY = canvas.height/2;
 }
 
+function computerMovement() {
+    if (paddle2Y < ballY) {
+        paddle2Y += 6;
+    } else {
+        paddle2Y -= 6;
+    }
+}
+
 function moveEverything() {
-    ballX = ballX + ballSpeedX;
-    ballY = ballY + ballSpeedY;
+    computerMovement();
+
+    ballX += ballSpeedX;
+    ballY -= ballSpeedY;
 
     if(ballX < 0) {
         if (ballY > paddle1Y && ballY < paddle1Y+PADDLE_HEIGHT) {
