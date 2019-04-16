@@ -10,6 +10,10 @@ let paddle2Y = 250;
 const PADDLE_HEIGHT = 100;
 const PADDLE_THICKNESS = 10;
 
+let player1Score = 0;
+let player2Score = 0;
+
+
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
@@ -45,9 +49,10 @@ function ballReset() {
 }
 
 function computerMovement() {
-    if (paddle2Y < ballY) {
+    const paddle2YCenter = paddle2Y + (PADDLE_HEIGHT/2);
+    if (paddle2YCenter < ballY-35) {
         paddle2Y += 6;
-    } else {
+    } else if (paddle2YCenter > ballY+35){
         paddle2Y -= 6;
     }
 }
@@ -61,16 +66,22 @@ function moveEverything() {
     if(ballX < 0) {
         if (ballY > paddle1Y && ballY < paddle1Y+PADDLE_HEIGHT) {
             ballSpeedX = -ballSpeedX;
+            let deltaY = ballY - (paddle1Y + PADDLE_HEIGHT/2);
+            ballSpeedY = deltaY * 0.35;
         } else {
             ballReset();
+            player2Score += 1;
         }
     }
 
     if(ballX > canvas.width) {
         if (ballY > paddle2Y && ballY < paddle2Y+PADDLE_HEIGHT) {
             ballSpeedX = -ballSpeedX;
+            let deltaY = ballY - (paddle2Y+PADDLE_HEIGHT/2);
+            ballSpeedY = deltaY * 0.35;
         } else {
             ballReset();
+            player1Score += 1;
         }
     }
 
@@ -90,6 +101,8 @@ function drawEverything() {
 
     // draw ball
     colorCircle(ballX, ballY, 10, 'white')
+    canvasContext.fillText(player1Score, 100, 100)
+    canvasContext.fillText(player2Score, canvas.width-100, 100)
 }
 
 function colorCircle(centerX, centerY, radius, drawColor) {
